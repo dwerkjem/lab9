@@ -1,3 +1,3 @@
-def main() -> None:
-    """Run the lab program."""
-    return None
+from .main import main
+
+__all__ = ["main"]

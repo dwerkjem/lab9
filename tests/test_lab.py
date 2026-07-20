@@ -1,4 +1,4 @@
-from campus_book_store import main
+from src.campus_book_store import main
 
 
 def test_main_passes() -> None:
