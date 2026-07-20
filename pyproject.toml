@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "campus-book-store"
+version = "0.1.0"
+description = "A simple inventory system for the campus bookstore, built to meet the specified requirements"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+"campus-book-store" = "campus_book_store:main"
+
+[dependency-groups]
+dev = [
+    "black>=26.5.1",
+    "pre-commit>=4.0",
+    "pytest>=9.1.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/campus_book_store"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 88
+target-version = ["py313"]
