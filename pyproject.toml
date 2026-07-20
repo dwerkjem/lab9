@@ -24,9 +24,9 @@ dev = [
 packages = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "-q"
+addopts = "-q --doctest-modules"
 pythonpath = ["src"]
-testpaths = ["tests"]
+testpaths = ["tests", "src/campus_book_store"]
 
 [tool.black]
 line-length = 88
