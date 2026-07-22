@@ -11,7 +11,7 @@ requires-python = ">=3.13"
 dependencies = []
 
 [project.scripts]
-"campus-book-store" = "src.campus_book_store:main"
+campus-book-store = "campus_book_store.main:main"
 
 [dependency-groups]
 dev = [
@@ -21,7 +21,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/campus_book_store"]
 
 [tool.pytest.ini_options]
 addopts = "-q --doctest-modules"
