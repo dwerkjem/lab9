@@ -1,12 +1,14 @@
+"""Application entry point for the campus bookstore inventory system."""
+
 from . import helpers as helper
 from .menu import print_and_make_selection
 
 
 def main() -> None:
-    """Run the lab program."""
-    separator: str = "=" * helper.terminal_width
-    sub_separator: str = "-" * helper.terminal_width
-    print("Hello welcome to the CLI for the campus book store!")
+    """Run the campus bookstore inventory system."""
+    title = "Campus Bookstore Inventory System"
+    separator = "=" * min(len(title), helper.terminal_width)
+    print(title)
     print(separator)
     print_and_make_selection()
 
