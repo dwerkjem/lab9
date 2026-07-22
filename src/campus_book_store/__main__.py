@@ -1,3 +1,7 @@
-from . import main
+"""Allow the package to run with ``python -m campus_book_store``."""
 
-main()
+from .main import main
+
+
+if __name__ == "__main__":
+    main()
