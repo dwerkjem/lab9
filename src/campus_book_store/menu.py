@@ -106,21 +106,16 @@ def get_menu_text() -> str:
     return "\n".join(f"{option.value}. {option.label}" for option in Option)
 
 
-def print_and_make_selection(
-    number: int | str | None = None,
-) -> None:
+def print_and_make_selection(number: int | str | None = None) -> None:
     """Display the menu, obtain a selection, and run the selected option.
 
-    When `number` is provided, it is used as the selection instead of asking
-    the user for input. This behavior allows the function to be tested or
-    called programmatically.
-
-    When no argument is provided, the user is repeatedly prompted until they
-    enter a valid menu option.
+    A supplied selection can be a number, a numeric string, or an unambiguous
+    partial or fuzzy match for an option label. When no selection is supplied,
+    the user is prompted until a valid selection is entered.
 
     Args:
-        number (int | str | None): An optional menu selection. When `None`,
-            input is requested from the user. Defaults to `None`.
+        number (int | str | None): An optional numeric or text menu selection.
+            When `None`, input is requested from the user. Defaults to `None`.
 
     Returns:
         None: The selected function is run, or the function returns after an
@@ -144,6 +139,15 @@ def print_and_make_selection(
         3. Search For Product
         4. Display Inventory Report
         5. Exit
+
+        Unambiguous partial text is accepted:
+
+        >>> print_and_make_selection("exit")
+        1. Add Product
+        2. Display All Products
+        3. Search For Product
+        4. Display Inventory Report
+        5. Exit
     """
     menu_text = get_menu_text()
     print(menu_text)
@@ -155,22 +159,19 @@ def print_and_make_selection(
         )
 
         try:
-            selected_number = int(raw_selection)
-        except ValueError:
-            print(
-                f"{raw_selection!r} is not a number. "
-                f"Please enter a number.\n{menu_text}"
+            selection = Option(int(raw_selection))
+        except (TypeError, ValueError):
+            selection = helper.interpret_partial_text(
+                str(raw_selection),
+                Option,
+                label=lambda option: option.label,
             )
 
-            if number is not None:
-                return
-
-            continue
-
-        try:
-            selection = Option(selected_number)
-        except ValueError:
-            print(f"{selected_number} is not a valid menu option." f"\n{menu_text}")
+        if selection is None:
+            print(
+                f"{raw_selection!r} is not an unambiguous menu option."
+                f"\n{menu_text}"
+            )
 
             if number is not None:
                 return
